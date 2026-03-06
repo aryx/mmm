@@ -10,6 +10,8 @@ and modernized the codebase (see `changes.txt` and `authors.txt`).
 
 The old website was https://caml.inria.fr/pub/old_caml_site/~rouaix/mmm/
 
+![MMM screenshot](docs/mmm-screenshot.png)
+
 ## Building
 
 ### Prerequisites
