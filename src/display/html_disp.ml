@@ -6,7 +6,7 @@ let verbose = ref false
 (*e: constant [[Html_disp.verbose]] *)
 (*s: constant [[Html_disp.attempt_tables]] *)
 (* Preference settings *)
-let attempt_tables = ref false
+let attempt_tables = ref true
 (*e: constant [[Html_disp.attempt_tables]] *)
 
 (*s: function [[Html_disp.lowernumber]] *)
@@ -943,22 +943,6 @@ module TableLogic = Html_table
       ignore_close
     ;
     (*x: [[Html_disp.Make.init()]] HTML elements machine initialisation *)
-    (* TABLE support *)
-    if !attempt_tables 
-    then TableLogic.init mach
-    else begin
-      let behave_as oldtag newtag =
-         mach#add_tag newtag
-           (fun _fo _t -> mach#send (OpenTag {tag_name = oldtag; attributes = []}))
-           (fun _fo ->   mach#send (CloseTag oldtag))
-      in
-      (* use DL for tables *)
-      behave_as "dl" "table";
-      mach#add_tag "tr" ignore_open ignore_close;
-      behave_as "dt" "th";
-      behave_as "dd" "td"
-    end;
-    (*x: [[Html_disp.Make.init()]] HTML elements machine initialisation *)
     (* Some HTML 3.2 good features *)
     let areas = ref [] in
     let mapname = ref "" in
@@ -1209,6 +1193,22 @@ module TableLogic = Html_table
     (* FORMS: they are defined elsewhere (html_form) *)
     FormLogic.init mach;
     (* standard basic HTML2.0 initialisation stops here *)
+    (*x: [[Html_disp.Make.init()]] HTML elements machine initialisation *)
+    (* TABLE support *)
+    if !attempt_tables 
+    then TableLogic.init mach
+    else begin
+      let behave_as oldtag newtag =
+         mach#add_tag newtag
+           (fun _fo _t -> mach#send (OpenTag {tag_name = oldtag; attributes = []}))
+           (fun _fo ->   mach#send (CloseTag oldtag))
+      in
+      (* use DL for tables *)
+      behave_as "dl" "table";
+      mach#add_tag "tr" ignore_open ignore_close;
+      behave_as "dt" "th";
+      behave_as "dd" "td"
+    end;
     (*e: [[Html_disp.Make.init()]] HTML elements machine initialisation *)
   ()
   (*e: function [[Html_disp.Make.init]] *)

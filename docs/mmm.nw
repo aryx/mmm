@@ -9856,48 +9856,12 @@ let length_of_string s =
 %\subsection{Forms}
 % now in next chapter
 
-\subsection{Tables}
-% separater chapter?
+%\subsection{Tables}
+% now in next chapter
 
-<<type [[Htmlfmt.width_constraint]]>>=
-(* Table manager *)
-type width_constraint =
-  | TopWidth				(* toplevel window size*)
-  | FixedWidth of int			(* width is given in pixels *)
-  | UnknownWidth of (unit -> bool)	(* constraint to satisfy *)
-@
-
-
-<<signature [[Html_disp.attempt_tables]]>>=
-val attempt_tables : bool ref
-@
-<<constant [[Html_disp.attempt_tables]]>>=
-(* Preference settings *)
-let attempt_tables = ref false
-@
-
-<<[[Html_disp.Make.init()]] HTML elements machine initialisation>>=
-(* TABLE support *)
-if !attempt_tables 
-then TableLogic.init mach
-else begin
-  let behave_as oldtag newtag =
-     mach#add_tag newtag
-       (fun _fo _t -> mach#send (OpenTag {tag_name = oldtag; attributes = []}))
-       (fun _fo ->   mach#send (CloseTag oldtag))
-  in
-  (* use DL for tables *)
-  behave_as "dl" "table";
-  mach#add_tag "tr" ignore_open ignore_close;
-  behave_as "dt" "th";
-  behave_as "dd" "td"
-end;
-@
 
 %\subsection{Embedded elements, [[<embed>]]}
 %alt: now later
-
-
 
 \subsection{Maps, [[<map>]]}
 
@@ -11202,6 +11166,44 @@ FormLogic.init mach;
 (* standard basic HTML2.0 initialisation stops here *)
 @
 
+%******************************************************************************
+\chapter{Tables}
+%******************************************************************************
+
+<<type [[Htmlfmt.width_constraint]]>>=
+(* Table manager *)
+type width_constraint =
+  | TopWidth				(* toplevel window size*)
+  | FixedWidth of int			(* width is given in pixels *)
+  | UnknownWidth of (unit -> bool)	(* constraint to satisfy *)
+@
+
+
+<<signature [[Html_disp.attempt_tables]]>>=
+val attempt_tables : bool ref
+@
+<<constant [[Html_disp.attempt_tables]]>>=
+(* Preference settings *)
+let attempt_tables = ref true
+@
+
+<<[[Html_disp.Make.init()]] HTML elements machine initialisation>>=
+(* TABLE support *)
+if !attempt_tables 
+then TableLogic.init mach
+else begin
+  let behave_as oldtag newtag =
+     mach#add_tag newtag
+       (fun _fo _t -> mach#send (OpenTag {tag_name = oldtag; attributes = []}))
+       (fun _fo ->   mach#send (CloseTag oldtag))
+  in
+  (* use DL for tables *)
+  behave_as "dl" "table";
+  mach#add_tag "tr" ignore_open ignore_close;
+  behave_as "dt" "th";
+  behave_as "dd" "td"
+end;
+@
 
 %******************************************************************************
 \chapter{CSS}
