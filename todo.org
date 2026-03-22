@@ -22,6 +22,101 @@ especially css and javascript (and dom)!
 
 *** js
 
+* Last
+
+** Last2
+
+*** RELAX lpize applets/sandbox/ files
+and try to share chunks instead of copy paste and useless coupling
+
+*** RELAX mmm: use capabilities exec! and forkew! where do we call mmmc ?
+
+*** WAITING try to complete mmm.nw with Claude?
+finish lpize what can be lpized
+
+*** try animated gif, solve Tkanim linking problem?
+
+*** start remove use of class and objects
+use Claude
+
+
+*** add mmm -dump_url
+(deriving show)
+alt: in htparse -dump
+
+*** add mmm -dump_html and start use deriving
+
+*** add mmm -dump_http ?
+
+*** add css parser (and osemgrep lib_parsing? Tok.t ?)
+
+*** mmm: demos sboard?
+
+*** -------------------------------------------------------
+
+*** see chapter 1 of browser-engineering book and all the
+advanced features as exercises
+
+*** read mrubeck blog posts on robinson toy browser
+look at dom, css style, etc. ideas for implemtation my own.
+
+*** when render href anchor, where is the code that actually go to the link?
+the hyperfuncs stuff?
+
+
+** Last1
+
+*** refactor (to help understanding)
+
+**** have display_html and display_machine, which is confusing
+=> better to have display_html, and then machine_html
+so rename! or even interpret_html! or html_interpreter
+
+**** more types? or better chapters?
+type retriever?
+type viewer?
+type formatter?
+type interpreter?
+type cacher?
+
+so Http.req has type retriever, more readable? factorize also
+same for File.req, or a requester?
+
+*** LPize
+
+**** LP split stdctx
+
+**** Plink.make
+mv closer to parsing? or in core DS?
+P for ?
+
+*** aspectize 
+
+**** aspectize frames, not in html5 anyway
+
+**** aspectize more img and embedded
+
+*** look at Form display :)
+could learn stuff for my rsvp form :)
+
+*** add "frame" and head_hook
+
+*** test dumpers
+URI?
+URL?
+link
+request, headers
+html
+diff?
+
+*** less: run scheck, remove deadcode?
+
+*** later: CSS, JS, etc
+implement enough for this examples:
+https://khanacademy.org/html-css-js
+
+
+
 * Now
 #See also Browser.nw section in plan9/todo.txt
 
